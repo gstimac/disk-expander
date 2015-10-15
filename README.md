@@ -1,2 +1,3 @@
 # disk_expander
-a dirty python script that expands physical and logical volumes on linux machines
+A dirty python script that expands physical and logical volumes on linux machines.
+Built on top of the Cement Framework -> http://builtoncement.com/. 
