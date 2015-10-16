@@ -1,5 +1,6 @@
 __author__ = 'gstimac'
 import os
+import subprocess
 from cement.core.foundation import CementApp
 from cement.utils.misc import init_defaults
 
@@ -13,7 +14,8 @@ class MyApp(CementApp):
         label = 'disk_expander'
         config_defaults = defaults
 
-def expand_physical():
+def expand_physical(volume):
+    print subprocess.Popen("(echo d; echo 3; echo n; echo p; echo 3; echo ; echo ; echo t; echo 3; echo 8e; echo w;) | fdisk /dev/sda", shell=True, stdout=subprocess.PIPE).stdout.read()
     return
 
 def expand_logical():
@@ -27,9 +29,9 @@ with MyApp() as app:
                           help='expand the last added logical volume')
     app.run()
 
-    if app.pargs.physical_volume is not None and app.pargs.len == 1:
+    if app.pargs.physical_volume is not None:
         expand_physical(app.pargs.physical_volume)
-    elif app.pargs.logical_volume is not None and app.pargs.len == 1:
+    elif app.pargs.logical_volume is not None:
         expand_logical(app.pargs.logical_volume)
     else:
         print "Please choose (wisely) between a physical and logical volume expansion!"
